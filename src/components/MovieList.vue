@@ -3,9 +3,9 @@
     class="movie-list"
     v-if="movies && movies.results && movies.results.length > 0"
   >
-    <li v-for="movie in movies.results" :key="movie.id">
+    <div v-for="movie in movies.results" :key="movie.id">
       <MovieListItem :movie="movie" />
-    </li>
+    </div>
   </div>
   <div class="movie-list-empty" v-else>
     <div v-if="currentPath !== '/favorite'">Something went wrong</div>
