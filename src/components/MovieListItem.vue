@@ -75,18 +75,18 @@ export default {
 <style scoped>
 	.movie-container {
 		display: flex;
+        flex-direction: column;
 		border: 1px solid lightgray;
 		height: 100%;
-		margin: 20px;
+		margin: 20px 0px;
 	}
 
-    .movie-poster {
-        width: 185px;
-    }
+    /* .movie-poster {
+        display: none;
+    } */
 
 	.movie-poster img {
-		height: 100%;
-        min-width: 185px;
+        width: 100%;
 	}
 
 	.movie-details {
@@ -119,12 +119,41 @@ export default {
 	}
 
 	.movie-details-rating {
-        height: 30px;
         margin-top: 10px;
-		margin-bottom: auto;
+        flex-direction: column;
 	}
 
     .movie-details-rating-vote {
+        display: block;
         margin-right: 15px;
+        margin-bottom: 10px;
+    }
+
+     @media screen and (min-width: 600px) {
+        .movie-container {
+            flex-direction: row;
+            margin: 20px;
+        }
+
+        .movie-poster {
+            /* display: unset; */
+            width: 185px;
+        }
+
+        .movie-poster img {
+            height: 100%;
+            min-width: 185px;
+        }
+
+        .movie-details-rating {
+            height: 30px;
+            flex-direction: row;
+            margin-bottom: auto;
+        }
+
+        .movie-details-rating-vote {
+            display: inline-block;
+            margin-bottom: 0px;
+        }
     }
 </style>

@@ -35,8 +35,9 @@ export default {
 </script>
 
 <style scoped>
+
   .movie-details-favorite {
-    display: inline-block;
+    height: 30px;
   }
 
   .movie-details-remove-favorite {
@@ -48,4 +49,10 @@ export default {
 		font-size: 12px;
     cursor: pointer;
 	}
+
+  @media screen and (min-width: 600px) {
+    .movie-details-favorite {
+      display: inline-block;
+    }
+  }
 </style>
