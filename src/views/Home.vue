@@ -3,41 +3,25 @@
     <h1>Movie List!</h1>
     <p>These were the top-rated films of the 20th Century.</p>
 
-    <ul class="movie-list">
-    	<li
-			v-for="(movie) in movies.results"
-			:key="movie.id"
-			class="movie-container"
-		>
-			<MovieListItem :movie="movie" />
-      </li>
-    </ul>
+	<NavigationBar />
+	<router-view></router-view>
+
   </div>
 </template>
 
 <script>
-import MovieListItem from "@/components/MovieListItem.vue";
-import { mapState, mapActions } from "vuex";
+import NavigationBar from "@/components/NavigationBar.vue";
 
 export default {
   name: "home",
   components: {
-    MovieListItem
-  },
-  methods: {
-	  ...mapActions(["fetchMovieDetails", "fetchGenreDetails"]),
-  },
-  computed: mapState({
-    movies: state => state.movies
-  }),
-  created(){
-	this.$store.dispatch("fetchMovieDetails");
+	NavigationBar
   }
 };
 </script>
 
 <style>
-	h2, ul, li, p, div {
+	h2, li, p, div {
 		padding: 0;
 		margin: 0;
 	}
