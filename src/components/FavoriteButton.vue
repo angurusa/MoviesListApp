@@ -35,24 +35,23 @@ export default {
 </script>
 
 <style scoped>
+.movie-details-favorite {
+  height: 30px;
+}
 
+.movie-details-remove-favorite {
+  height: 30px;
+  padding: 4px 0px;
+}
+
+.movie-details-remove-favorite a {
+  font-size: 12px;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 600px) {
   .movie-details-favorite {
-    height: 30px;
+    display: inline-block;
   }
-
-  .movie-details-remove-favorite {
-    height: 30px;
-    padding: 4px 0px;
-  }
-
-	.movie-details-remove-favorite a {
-		font-size: 12px;
-    cursor: pointer;
-	}
-
-  @media screen and (min-width: 600px) {
-    .movie-details-favorite {
-      display: inline-block;
-    }
-  }
+}
 </style>
