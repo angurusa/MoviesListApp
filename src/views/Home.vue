@@ -17,16 +17,22 @@
 
 <script>
 import MovieListItem from "@/components/MovieListItem.vue";
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "home",
   components: {
     MovieListItem
   },
+  methods: {
+	  ...mapActions(["fetchMovieDetails", "fetchGenreDetails"]),
+  },
   computed: mapState({
     movies: state => state.movies
-  })
+  }),
+  created(){
+	this.$store.dispatch("fetchMovieDetails");
+  }
 };
 </script>
 
@@ -38,5 +44,17 @@ export default {
 
 	li {
 		list-style: none;
+	}
+
+	.btn-primary {
+		background-color: #4286f4;
+		border: none;
+		color: white;
+		padding: 5px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+    	cursor: pointer;
 	}
 </style>
