@@ -1,15 +1,17 @@
 <template>
-  <button
-    class="movie-details-favorite"
-    @click="addFavorite(movie)"
-    v-if="!isFavorite(movie)"
-  >
-    Add to favorites
-  </button>
-  <span v-else>
-    <strong>Favorite! </strong>
-    <a @click="removeFavorite(movie)" class="remove_favorite">(UnFavorite)</a>
-  </span>
+  <div class="movie-details-favorite">
+    <button
+      class="btn-primary"
+      @click="addFavorite(movie)"
+      v-if="!isFavorite(movie)"
+    >
+      Add to favorites
+    </button>
+    <div class="movie-details-remove-favorite" v-else>
+      <strong>Favorite! </strong>
+      <a @click="removeFavorite(movie)">(UnFavorite)</a>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -33,19 +35,16 @@ export default {
 </script>
 
 <style scoped>
-	button.movie-details-favorite {
-		background-color: #4286f4;
-		border: none;
-		color: white;
-		padding: 5px;
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-		font-size: 16px;
-    cursor: pointer;
-	}
+  .movie-details-favorite {
+    display: inline-block;
+  }
 
-	.remove_favorite {
+  .movie-details-remove-favorite {
+    height: 30px;
+    padding: 4px 0px;
+  }
+
+	.movie-details-remove-favorite a {
 		font-size: 12px;
     cursor: pointer;
 	}
