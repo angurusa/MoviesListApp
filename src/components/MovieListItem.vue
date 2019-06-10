@@ -76,9 +76,8 @@ export default {
 	.movie-container {
 		display: flex;
 		border: 1px solid lightgray;
-		width: 90%;
 		height: 100%;
-		margin: 20px auto;
+		margin: 20px;
 	}
 
     .movie-poster {

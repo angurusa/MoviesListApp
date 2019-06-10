@@ -1,8 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-// import movies from "./apiResults";
-
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -32,21 +30,47 @@ export default new Vuex.Store({
     removeFavorite({ commit }, movie) {
       commit("removeFavorite", movie);
     },
-    async fetchMovieDetails({ commit }) {
-      try {
-        const genres = await Vue.http
-          .get("genre/movie/list?language=en-US")
-          .then(response => response.json());
-        commit("updateGenres", genres.genres);
+    async fetchMovieDetails({ commit, state, dispatch }, payload) {
+      if (payload === "/favorite") {
+        commit("updateMovies", { results: state.favorites });
+        return;
+      }
 
+      let tmdbDiscoverPath;
+      switch (payload) {
+        case "/popular":
+          tmdbDiscoverPath = "movie/popular?language=en-US";
+          break;
+        case "/top-rated":
+          tmdbDiscoverPath = "movie/top_rated?language=en-US";
+          break;
+        case "/now-playing":
+          tmdbDiscoverPath = "movie/now_playing?language=en-US";
+          break;
+        default:
+          tmdbDiscoverPath = "discover/movie?certification_country=US&certification.lte=PG&sort_by=popularity.desc";
+      }
+
+      if (!state.genres || !state.genres.length) {
+        dispatch("fetchGenreDetails");
+      }
+
+      try {
         const movies = await Vue.http
-          .get("discover/movie?language=en-US&sort_by=popularity.desc&page=1")
-          // .get(
-          //   "discover/movie?primary_release_date.gte=2018-09-15&primary_release_date.lte=2019-06-09"
-          // )
-          // .get("discover/movie?primary_release_year=2010&sort_by=vote_average.desc")
+          .get(tmdbDiscoverPath)
           .then(response => response.json());
         commit("updateMovies", movies);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async fetchGenreDetails({ commit }) {
+      const tmdbGenrePath = "genre/movie/list?language=en-US";
+      try {
+        const genres = await Vue.http
+          .get(tmdbGenrePath)
+          .then(response => response.json());
+        commit("updateGenres", genres.genres);
       } catch (e) {
         console.log(e);
       }
