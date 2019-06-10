@@ -3,7 +3,6 @@
     	<li
 			v-for="(movie) in movies.results"
 			:key="movie.id"
-			class="movie-container"
 		>
 			<MovieListItem :movie="movie" />
       </li>
