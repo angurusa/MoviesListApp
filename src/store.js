@@ -48,7 +48,8 @@ export default new Vuex.Store({
           tmdbDiscoverPath = "movie/now_playing?language=en-US";
           break;
         default:
-          tmdbDiscoverPath = "discover/movie?certification_country=US&certification.lte=PG&sort_by=popularity.desc";
+          tmdbDiscoverPath =
+            "discover/movie?certification_country=US&certification.lte=PG&sort_by=popularity.desc";
       }
 
       if (!state.genres || !state.genres.length) {

@@ -33,7 +33,7 @@ describe("FavoriteButton.vue", () => {
         overview:
           "In the smog-choked dystopian Los Angeles of 2019, blade runner Rick Deckard is called out of retirement to terminate a quartet of replicants who have escaped to Earth seeking their creator for a way to extend their short life spans.",
         release_date: "1982-06-25",
-        genres: ["Science Fiction", "Drama", "Thriller"]
+        genres: [878, 18, 53]
       }
     };
   });
@@ -45,9 +45,9 @@ describe("FavoriteButton.vue", () => {
       localVue
     });
 
-    const button = wrapper.find(".movie-details-favorite");
+    const button = wrapper.find(".movie-details-favorite button");
     expect(button.exists()).toBe(true);
-    expect(wrapper.find(".remove_favorite").exists()).toBe(false);
+    expect(wrapper.find(".movie-details-remove-favorite").exists()).toBe(false);
     button.trigger("click");
     expect(wrapper.vm.$store.state.favorites.length).toBe(1);
   });
@@ -59,7 +59,7 @@ describe("FavoriteButton.vue", () => {
       localVue
     });
 
-    const removeButton = wrapper.find(".remove_favorite");
+    const removeButton = wrapper.find(".movie-details-remove-favorite a");
     expect(removeButton.exists()).toBe(true);
     removeButton.trigger("click");
     expect(wrapper.vm.$store.state.favorites.length).toBe(0);
