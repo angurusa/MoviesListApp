@@ -1,30 +1,30 @@
 <template>
   <header class="top-nav" ref="topNav">
     <div class="top-nav-link">
-      <router-link active-class="active" to="/" exact>Home</router-link>
+      <router-link active-class="active" tabindex="1" to="/" exact>Home</router-link>
     </div>
     <div class="top-nav-link">
-      <router-link active-class="active" to="/popular"
+      <router-link active-class="active" tabindex="3" to="/popular"
         >Popular Movies</router-link
       >
     </div>
     <div class="top-nav-link">
-      <router-link active-class="active" to="/top-rated"
+      <router-link active-class="active" tabindex="4" to="/top-rated"
         >Top Rated Movies</router-link
       >
     </div>
     <div class="top-nav-link">
-      <router-link active-class="active" to="/now-playing"
+      <router-link active-class="active" tabindex="5" to="/now-playing"
         >Now Playing</router-link
       >
     </div>
     <div class="top-nav-link">
-      <router-link active-class="active" to="/favorite"
+      <router-link active-class="active" tabindex="6" to="/favorite"
         >Favorite Movies</router-link
       >
     </div>
-    <div class="icon" @click="changeClass">
-      <a><img src="@/assets/hamburger-menu.svg"/></a>
+    <div class="icon" @click="changeClass" @keyup.enter.space="changeClass">
+      <a tabindex="2"><img src="@/assets/hamburger-menu.svg" alt="'menu'"/></a>
     </div>
   </header>
 </template>

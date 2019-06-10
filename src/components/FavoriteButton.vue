@@ -9,7 +9,7 @@
     </button>
     <div class="movie-details-remove-favorite" v-else>
       <strong>Favorite! </strong>
-      <a @click="removeFavorite(movie)">(UnFavorite)</a>
+      <a @click="removeFavorite(movie)" @keyup.enter.space="removeFavorite(movie)" tabindex="0">(UnFavorite)</a>
     </div>
   </div>
 </template>
