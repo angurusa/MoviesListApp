@@ -41,7 +41,7 @@ export default {
 
 .movie-details-remove-favorite {
   height: 30px;
-  padding: 4px 0px;
+  padding-top: 3px;
 }
 
 .movie-details-remove-favorite a {

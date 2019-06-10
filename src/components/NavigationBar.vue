@@ -58,6 +58,7 @@ export default {
 .top-nav a {
   display: block;
   color: white;
+  font-weight: bold;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -69,6 +70,7 @@ export default {
 
 .top-nav a.active {
   background-color: #4caf50;
+  outline: none;
 }
 
 @media screen and (max-width: 600px) {
