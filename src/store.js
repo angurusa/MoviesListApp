@@ -7,20 +7,29 @@ export default new Vuex.Store({
   state: {
     movies: {},
     favorites: [],
-    genres: []
+    genres: [],
+    isLoading: false,
+    isError: false
   },
   mutations: {
     addFavorite(state, movie) {
       state.favorites.push(movie);
     },
     removeFavorite(state, movie) {
-      state.favorites = state.favorites.filter(fave => fave.id !== movie.id);
+      const index = state.favorites.findIndex(fave => fave.id === movie.id);
+      index > -1 && state.favorites.splice(index, 1);
     },
     updateMovies(state, movies) {
       state.movies = movies;
     },
     updateGenres(state, genres) {
       state.genres = genres;
+    },
+    updateIsLoading(state, status) {
+      state.isLoading = status;
+    },
+    updateIsError(state, status) {
+      state.isError = status;
     }
   },
   actions: {
@@ -30,14 +39,20 @@ export default new Vuex.Store({
     removeFavorite({ commit }, movie) {
       commit("removeFavorite", movie);
     },
-    async fetchMovieDetails({ commit, state, dispatch }, payload) {
-      if (payload === "/favorite") {
+    async fetchMovieDetails({ commit, state, dispatch }, route) {
+      if (route.path === "/favorites") {
         commit("updateMovies", { results: state.favorites });
         return;
       }
 
+      //reset movies, isLoading and isError states
+      commit("updateMovies", {});
+      commit("updateIsLoading", true);
+      commit("updateIsError", false);
+
       let tmdbDiscoverPath;
-      switch (payload) {
+      const pageNumber = route.query && route.query.page ? route.query.page : 1;
+      switch (route.path) {
         case "/popular":
           tmdbDiscoverPath = "movie/popular?language=en-US";
           break;
@@ -52,6 +67,8 @@ export default new Vuex.Store({
             "discover/movie?certification_country=US&certification.lte=PG&sort_by=popularity.desc";
       }
 
+      tmdbDiscoverPath += "&page=" + pageNumber;
+
       if (!state.genres || !state.genres.length) {
         dispatch("fetchGenreDetails");
       }
@@ -61,8 +78,12 @@ export default new Vuex.Store({
           .get(tmdbDiscoverPath)
           .then(response => response.json());
         commit("updateMovies", movies);
+        commit("updateIsError", false);
       } catch (e) {
         console.log(e);
+        commit("updateIsError", true);
+      } finally {
+        commit("updateIsLoading", false);
       }
     },
     async fetchGenreDetails({ commit }) {
@@ -74,6 +95,7 @@ export default new Vuex.Store({
         commit("updateGenres", genres.genres);
       } catch (e) {
         console.log(e);
+        commit("updateIsError", true);
       }
     }
   }

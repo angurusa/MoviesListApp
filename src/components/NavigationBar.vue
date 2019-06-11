@@ -19,7 +19,7 @@
       >
     </div>
     <div class="top-nav-link">
-      <router-link active-class="active" tabindex="6" to="/favorite"
+      <router-link active-class="active" tabindex="6" to="/favorites"
         >Favorite Movies</router-link
       >
     </div>

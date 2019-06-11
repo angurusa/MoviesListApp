@@ -34,8 +34,8 @@ export default new Router({
           component: MovieList
         },
         {
-          path: "/favorite",
-          name: "favorite",
+          path: "/favorites",
+          name: "favorites",
           component: MovieList
         }
       ]
