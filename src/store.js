@@ -50,8 +50,8 @@ export default new Vuex.Store({
       commit("updateIsLoading", true);
       commit("updateIsError", false);
 
+      //construct the api endpoint url based on the path and query
       let tmdbDiscoverPath;
-      const pageNumber = route.query && route.query.page ? route.query.page : 1;
       switch (route.path) {
         case "/popular":
           tmdbDiscoverPath = "movie/popular?language=en-US";
@@ -67,8 +67,10 @@ export default new Vuex.Store({
             "discover/movie?certification_country=US&certification.lte=PG&sort_by=popularity.desc";
       }
 
+      const pageNumber = route.query && route.query.page ? route.query.page : 1;
       tmdbDiscoverPath += "&page=" + pageNumber;
 
+      //fetch genres if it's not already fetched. This is done only once
       if (!state.genres || !state.genres.length) {
         dispatch("fetchGenreDetails");
       }
@@ -82,6 +84,7 @@ export default new Vuex.Store({
       } catch (e) {
         console.log(e);
         commit("updateIsError", true);
+        commit("updateMovies", {});
       } finally {
         commit("updateIsLoading", false);
       }
@@ -89,12 +92,23 @@ export default new Vuex.Store({
     async fetchGenreDetails({ commit }) {
       const tmdbGenrePath = "genre/movie/list?language=en-US";
       try {
-        const genres = await Vue.http
+        const genresObj = await Vue.http
           .get(tmdbGenrePath)
           .then(response => response.json());
-        commit("updateGenres", genres.genres);
+        let genres = genresObj.genres;
+
+        //convert genres array of object into a key value pair
+        //[{id: 12, name: "Action"}] will become {"12": "Action"}
+        if (genres && genres.length) {
+          genres = Object.assign(
+            {},
+            ...genres.map(genre => ({ [genre.id]: genre.name }))
+          );
+          commit("updateGenres", genres);
+        }
       } catch (e) {
         console.log(e);
+        commit("updateGenres", []);
         commit("updateIsError", true);
       }
     }

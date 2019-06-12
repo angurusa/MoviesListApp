@@ -63,11 +63,7 @@ export default {
   },
   methods: {
     getGenres(genreIds) {
-      let genres = this.genres.filter(genre => {
-        return genreIds.indexOf(genre.id) !== -1;
-      });
-      genres = genres.map(genre => genre.name);
-      return genres;
+      return genreIds.map(genreId => this.genres[genreId]);
     }
   },
   filters: {
