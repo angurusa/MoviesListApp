@@ -79,8 +79,13 @@ export default new Vuex.Store({
         const movies = await Vue.http
           .get(tmdbDiscoverPath)
           .then(response => response.json());
-        commit("updateMovies", movies);
-        commit("updateIsError", false);
+        if (movies && movies.results && movies.results.length > 0) {
+          commit("updateMovies", movies);
+          commit("updateIsError", false);
+        } else {
+          commit("updateIsError", true);
+          commit("updateMovies", {});
+        }
       } catch (e) {
         console.log(e);
         commit("updateIsError", true);

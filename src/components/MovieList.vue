@@ -58,5 +58,6 @@ export default {
 <style scoped>
     .movie-list-empty {
         margin: 20px;
+        text-align: center;
     }
 </style>
